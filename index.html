@@ -5,8 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
     <link href="src/input.css" type="text/css" rel="stylesheet " />
+    <link href="dist/output.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="flex flex-col gap-2 bg-slate-100">
+    <header class="grid gap-3 sm:grid-cols-3 grid-cols-3 p-2">
+      <div id="logo" class="text-2xl p-2">Library</div>
+
+      <div
+        id="signIn"
+        class="w-full flex col-span-2 gap-2 items-center justify-end pr-2"
+      >
+        <button
+          id="add-book"
+          type="button"
+          class="bg-cyan-500 p-2 text-slate-50 rounded-lg"
+        >
+          + add book
+        </button>
+        <button class="">Login</button>
+      </div>
+      <input
+        type="text"
+        id="book-name"
+        placeholder="Search for title, author or year..."
+        class="p-2 w-full col-span-3 rounded-lg"
+      />
+    </header>
+    <main class="grid gap-2 auto-rows-min grid-cols-1">
+      <div
+        id="books-container"
+        class="grid gap-2 xl:grid-cols-4 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 place-items-center justify-center"
+      ></div>
+      <div id="new-book">
+        <div
+          id="form-container"
+          class="hidden absolute transition-opacity duration-300 opacity-0 bg-slate-100 w-full h-full top-0 gap-2 left-0 flex-col items-center justify-center"
+        >
+          <div id="closeBtn" class="p-10 text-right w-full">
+            <span>Close</span>
+          </div>
+          <form onsubmit="addBookToLibrary(); return false;" class="grid gap-5">
+            <div class="grid gap-1">
+              <label for="new-book-name">Title of the Book:</label>
+              <input
+                class="col-span-2 p-2 bg-slate-100 border-b border-slate-900"
+                type="text"
+                name="bookName"
+                id="new-book-name"
+                value="Title"
+              />
+            </div>
+            <div class="grid gap-1">
+              <label for="new-book-author">Author of the Book:</label>
+              <input
+                class="col-span-2 p-2 bg-slate-100 border-b border-slate-900"
+                type="text"
+                name="author"
+                id="new-book-author"
+                value="Author"
+              />
+            </div>
+            <div class="grid gap-1">
+              <label for="new-book-year">Published Year of Book:</label>
+              <input
+                class="col-span-2 p-2 bg-slate-100 border-b border-slate-900"
+                type="text"
+                name="bookPublished"
+                id="new-book-year"
+                value="Year Published"
+              />
+            </div>
+            <div class="grid gap-1">
+              <label for="new-book-publisher">Publisher of Book:</label>
+              <input
+                class="col-span-2 p-2 bg-slate-100 border-b border-slate-900"
+                type="text"
+                name="publisher"
+                id="new-book-publisher"
+                value="Publisher"
+              />
+            </div>
+            <div class="grid gap-1">
+              <label for="new-book-page-count">Pages of Book:</label>
+              <input
+                class="col-span-2 p-2 bg-slate-100 border-b border-slate-900"
+                type="text"
+                name="pageCount"
+                id="new-book-page-count"
+                value="321"
+              />
+            </div>
+            <div class="grid gap-1">
+              <label for="new-book-language">Language of Book:</label>
+              <input
+                class="col-span-2 p-2 bg-slate-100 border-b border-slate-900"
+                type="text"
+                name="language"
+                id="new-book-language"
+                value="English"
+              />
+            </div>
+            <div class="grid gap-1">
+              <label for="new-book-shortinfo">Short Details</label>
+              <textarea
+                value="Just Some Details"
+                id="new-book-shortinfo"
+                class="bg-slate-50"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="bg-cyan-500 text-slate-50 p-4 rounded-lg"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <script type="text/javascript" src="src/books.js"></script>
+
     <script type="text/javascript" src="src/main.js"></script>
   </body>
 </html>
