@@ -77,17 +77,17 @@ function displayTabBooks(e) {
   }
 }
 
-function showForm(e) {
-  if (e) {
-    formContainer.style.display = "flex";
+function showForm(show) {
+  if (show) {
+    formContainer.classList.remove("hidden");
     setTimeout(() => {
-      formContainer.style.opacity = 1;
-    }, 300);
+      formContainer.classList.remove("opacity-0");
+    }, 10);
   } else {
-    formContainer.style.opacity = 0;
+    formContainer.classList.add("opacity-0");
     setTimeout(() => {
-      formContainer.style.display = "none";
-    }, 300);
+      formContainer.classList.add("hidden");
+    }, 10);
   }
 }
 function changeReadBook(book, Bool) {
@@ -162,19 +162,18 @@ function createBookElement(updatedBook) {
       "hover:bg-green-700 transition-all duration-300 bg-green-500 w-full  text-slate-50 p-2 rounded-lg";
     cancelDelete.textContent = "No";
     cancelDelete.addEventListener("click", () => {
-      deleteDiv.style.opacity = 0;
+      deleteDiv.classList.remove("opacity-0");
 
       setTimeout(() => {
         card.removeChild(deleteDiv);
-        cardHeader.appendChild(deleteBtn);
-        deleteBtn.style.opacity = 1;
+        deleteBtn.classList.remove("hidden", "opacity-0");
       }, 300);
     });
     deleteDiv.appendChild(cancelDelete);
     card.appendChild(deleteDiv);
     setTimeout(() => {
-      deleteDiv.style.opacity = 1;
-      cardHeader.removeChild(deleteBtn);
+      deleteDiv.classList.remove("opacity-0");
+      deleteBtn.classList.add("hidden");
     }, 10);
   });
   cardHeader.appendChild(deleteBtn);
@@ -304,17 +303,17 @@ function addBookToLibrary() {
 
 function preLoad() {
   const main = document.querySelector("main");
-  loader.style.opacity = 1;
-  loader.style.display = "flex";
+  loader.classList.add("flex");
+  loader.classList.remove("opacity-0", "hidden");
 
   setTimeout(() => {
-    main.style.opacity = 1;
-    loader.style.opacity = 0;
+    main.classList.remove("opacity-0", "hidden");
+    loader.classList.add("opacity-0");
     loader.addEventListener("transitionend", () => {
-      loader.style.display = "none";
+      loader.classList.add("hidden");
     });
-    main.style.display = "grid";
-  });
+    main.classList.add("grid");
+  }, 300);
 }
 
 window.onload = () => {
