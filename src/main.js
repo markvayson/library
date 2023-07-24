@@ -234,8 +234,7 @@ function createBookElement(updatedBook) {
 }
 
 function getBook(e) {
-  let word = e.target.value;
-  let lowercaseInput = word.toLowerCase();
+  let word = e.target.value.toLowerCase();
   const filterBook = myLibrary.filter((book) => {
     const {
       bookName,
@@ -247,22 +246,19 @@ function getBook(e) {
       publisher,
     } = book;
 
-    const lowercaseBookName = bookName.toLowerCase();
-    const lowercaseAuthor = author.toLowerCase();
-    const lowercaseBookPublished = bookPublished.toLowerCase();
-    const lowercaseShortInfo = shortInfo.toLowerCase();
-    const lowercaseLanguage = language.toLowerCase();
-    const lowercasePublisher = publisher.toLowerCase();
+    const lowercaseFields = [
+      bookName.toLowerCase(),
+      author.toLowerCase(),
+      bookPublished.toLowerCase(),
+      shortInfo.toLowerCase(),
+      language.toLowerCase(),
+      publisher.toLowerCase(),
+    ];
 
-    return (
-      lowercaseBookName.includes(lowercaseInput) ||
-      lowercaseAuthor.includes(lowercaseInput) ||
-      lowercaseBookPublished.includes(lowercaseInput) ||
-      lowercaseShortInfo.includes(lowercaseInput) ||
-      lowercaseLanguage.includes(lowercaseInput) ||
-      lowercasePublisher.includes(lowercaseInput) ||
-      pageCount.toString().includes(word)
+    const hasMatchingText = lowercaseFields.some((field) =>
+      field.includes(word)
     );
+    return hasMatchingText || pageCount.toString().includes(word);
   });
 
   displayBookList(filterBook);
