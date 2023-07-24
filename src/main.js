@@ -2,16 +2,30 @@ const DEFAULT_TAB = "all";
 
 let currentTab = DEFAULT_TAB;
 
+let totalofBooks;
+let totalofUnfinishedBooks;
+let totalofFinishedBooks;
+
+const booksContainer = document.getElementById("books-container");
+const formContainer = document.getElementById("form-container");
+const form = document.querySelector("form");
+const loader = document.getElementById("loader");
 const inputWord = document.getElementById("find-word");
 inputWord.addEventListener("input", getBook);
 
-const booksContainer = document.getElementById("books-container");
+function getTotal() {
+  totalofBooks = myLibrary.length;
+  totalofUnfinishedBooks = myLibrary.filter(
+    (obj) => obj.isRead === false
+  ).length;
+  totalofFinishedBooks = myLibrary.filter((obj) => obj.isRead === true).length;
 
-const formContainer = document.getElementById("form-container");
-const form = document.querySelector("form");
-const addBook = document.getElementById("add-book");
-const closeBtn = document.getElementById("closeBtn");
-const loader = document.getElementById("loader");
+  return (
+    (allBooks.textContent = `All (${totalofBooks})`),
+    (unfinishedBooks.textContent = `Unfinished (${totalofUnfinishedBooks})`),
+    (finishedBooks.textContent = `Finished (${totalofFinishedBooks})`)
+  );
+}
 
 const allBooks = document.getElementById("all-books");
 allBooks.addEventListener("click", () => {
@@ -23,16 +37,19 @@ finishedBooks.addEventListener("click", () => {
   displayTabBooks("finished");
 });
 const unfinishedBooks = document.getElementById("unfinished-books");
-
 unfinishedBooks.addEventListener("click", () => {
   displayTabBooks("unfinished");
 });
+
+const closeBtn = document.getElementById("closeBtn");
 closeBtn.addEventListener("click", () => showForm(false));
 
+const addBook = document.getElementById("add-book");
 addBook.addEventListener("click", () => showForm(true));
 
 function displayTabBooks(e) {
   preLoad();
+  getTotal();
   currentTab = e;
   let filterFinish;
   if (currentTab === "finished") {
@@ -87,7 +104,7 @@ function removeBook(book) {
 
   if (indextoRemove !== -1) {
     myLibrary.splice(indextoRemove, 1);
-    displayBookList(myLibrary);
+    displayTabBooks(currentTab);
   } else {
     return;
   }
@@ -280,6 +297,8 @@ function addBookToLibrary() {
       book.pageCount === newbook.pageCount
     );
   });
+  newbook.isRead = false;
+  console.log(newbook);
   if (isDouble) return false;
   myLibrary.push(newbook);
   displayTabBooks(currentTab);
