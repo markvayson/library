@@ -89,7 +89,7 @@ function removeBook(book) {
     myLibrary.splice(indextoRemove, 1);
     displayBookList(myLibrary);
   } else {
-    console.log("no change");
+    return;
   }
 }
 
@@ -265,7 +265,6 @@ function displayBookList(books) {
 }
 
 function addBookToLibrary() {
-  console.log("a");
   const formData = new FormData(form);
   let entries = formData.entries();
 
