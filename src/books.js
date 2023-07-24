@@ -7,6 +7,7 @@ let myLibrary = [
     publisher: "Penguin Publishing Group",
     pageCount: 320,
     shortInfo: "An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+    isRead: true,
   },
   {
     bookName: "Learning How to Learn",
@@ -17,6 +18,7 @@ let myLibrary = [
     pageCount: 256,
     shortInfo:
       "How to Succeed in School Without Spending All Your Time Studying; A Guide for Kids and Teens",
+    isRead: false,
   },
   {
     bookName: "The Great Gatsby",
@@ -27,6 +29,7 @@ let myLibrary = [
     pageCount: 180,
     shortInfo:
       "A classic novel exploring the decadence and moral decline of the Jazz Age.",
+    isRead: true,
   },
   {
     bookName: "To Kill a Mockingbird",
@@ -37,6 +40,7 @@ let myLibrary = [
     pageCount: 324,
     shortInfo:
       "A Pulitzer Prize-winning novel that addresses racial injustice and moral growth in the American South.",
+    isRead: false,
   },
   {
     bookName: "1984",
@@ -47,6 +51,7 @@ let myLibrary = [
     pageCount: 328,
     shortInfo:
       "A dystopian novel portraying a totalitarian society and the consequences of government overreach.",
+    isRead: true,
   },
   {
     bookName: "Pride and Prejudice",
@@ -57,6 +62,7 @@ let myLibrary = [
     pageCount: 432,
     shortInfo:
       "A romantic novel following the lives of the Bennet sisters and their pursuit of love and happiness.",
+    isRead: false,
   },
   {
     bookName: "The Lord of the Rings",
@@ -67,6 +73,7 @@ let myLibrary = [
     pageCount: 1178,
     shortInfo:
       "An epic fantasy trilogy chronicling the quest to destroy the One Ring and defeat the dark lord Sauron.",
+    isRead: true,
   },
   {
     bookName: "To the Lighthouse",
@@ -77,6 +84,7 @@ let myLibrary = [
     pageCount: 209,
     shortInfo:
       "A novel exploring the complexities of human relationships and the passage of time through the Ramsay family.",
+    isRead: false,
   },
   {
     bookName: "One Hundred Years of Solitude",
@@ -87,6 +95,7 @@ let myLibrary = [
     pageCount: 417,
     shortInfo:
       "A magical realist novel tracing the multi-generational story of the Buendía family in the fictional town of Macondo.",
+    isRead: true,
   },
   {
     bookName: "Brave New World",
@@ -97,6 +106,7 @@ let myLibrary = [
     pageCount: 311,
     shortInfo:
       "A dystopian novel portraying a society organized on the principles of mass production, pleasure, and conformity.",
+    isRead: false,
   },
   {
     bookName: "The Catcher in the Rye",
@@ -107,6 +117,7 @@ let myLibrary = [
     pageCount: 277,
     shortInfo:
       "A coming-of-age novel following Holden Caulfield's journey through adolescence and alienation.",
+    isRead: true,
   },
   {
     bookName: "Harry Potter and the Sorcerer's Stone",
@@ -117,15 +128,17 @@ let myLibrary = [
     pageCount: 223,
     shortInfo:
       "The first book in the fantasy series about a young wizard, Harry Potter, and his adventures at Hogwarts School of Witchcraft and Wizardry.",
+    isRead: false,
   },
   {
     bookName: "Crime and Punishment",
     author: "Fyodor Dostoevsky",
     bookPublished: "January 1866",
     language: "Russian",
-    publisher: "The Russian Messenger",
+    publisher: "The Russia Messenger",
     pageCount: 671,
     shortInfo:
       "A psychological novel delving into the inner turmoil of a young man, Raskolnikov, after committing a murder.",
+    isRead: true,
   },
 ];

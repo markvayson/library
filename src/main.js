@@ -1,3 +1,7 @@
+const DEFAULT_TAB = "all";
+
+let currentTab = DEFAULT_TAB;
+
 const inputWord = document.getElementById("find-word");
 inputWord.addEventListener("input", getBook);
 
@@ -7,10 +11,54 @@ const formContainer = document.getElementById("form-container");
 const form = document.querySelector("form");
 const addBook = document.getElementById("add-book");
 const closeBtn = document.getElementById("closeBtn");
+const loader = document.getElementById("loader");
 
+const allBooks = document.getElementById("all-books");
+allBooks.addEventListener("click", () => {
+  displayTabBooks("all");
+});
+
+const finishedBooks = document.getElementById("finished-books");
+finishedBooks.addEventListener("click", () => {
+  displayTabBooks("finished");
+});
+const unfinishedBooks = document.getElementById("unfinished-books");
+
+unfinishedBooks.addEventListener("click", () => {
+  displayTabBooks("unfinished");
+});
 closeBtn.addEventListener("click", () => showForm(false));
 
 addBook.addEventListener("click", () => showForm(true));
+
+function displayTabBooks(e) {
+  preLoad();
+  currentTab = e;
+  let filterFinish;
+  if (currentTab === "finished") {
+    allBooks.classList.remove("viewed");
+    finishedBooks.classList.add("viewed");
+    unfinishedBooks.classList.remove("viewed");
+    filterFinish = myLibrary.filter((book) => book.isRead === true);
+
+    return displayBookList(filterFinish);
+  }
+  if (currentTab === "unfinished") {
+    allBooks.classList.remove("viewed");
+    finishedBooks.classList.remove("viewed");
+    unfinishedBooks.classList.add("viewed");
+    filterFinish = myLibrary.filter((book) => book.isRead === false);
+
+    return displayBookList(filterFinish);
+  }
+  if (currentTab === "all") {
+    allBooks.classList.add("viewed");
+    finishedBooks.classList.remove("viewed");
+    unfinishedBooks.classList.remove("viewed");
+
+    return displayBookList(myLibrary);
+  }
+}
 
 function showForm(e) {
   if (e) {
@@ -24,6 +72,14 @@ function showForm(e) {
       formContainer.style.display = "none";
     }, 300);
   }
+}
+function changeReadBook(book, Bool) {
+  preLoad();
+  const indextoChange = myLibrary.findIndex((obj) => obj.bookName === book);
+
+  myLibrary[indextoChange].isRead = Bool;
+
+  displayTabBooks(currentTab);
 }
 
 function removeBook(book) {
@@ -46,6 +102,7 @@ function createBookElement(updatedBook) {
     language,
     pageCount,
     shortInfo,
+    isRead,
   } = updatedBook;
 
   const card = document.createElement("div");
@@ -57,13 +114,14 @@ function createBookElement(updatedBook) {
   card.appendChild(cardHeader);
 
   const titleElement = document.createElement("p");
-  titleElement.className = "col-span-3 font-bold text-lg";
+  titleElement.className =
+    "hover:z-10 hover:bg-slate-50 hover:w-full col-span-3 font-bold text-lg";
   titleElement.textContent = bookName;
   cardHeader.appendChild(titleElement);
 
   const deleteBtn = document.createElement("button");
   deleteBtn.className =
-    "absolute right-0 top-0 text-xl bg-gray-200 px-2 hover:bg-red-500 hover:text-slate-50 rounded-lg";
+    "absolute -right-5 -top-5 text-xl bg-gray-200 px-2 hover:bg-red-500 hover:text-slate-50 rounded-lg";
   deleteBtn.textContent = "x";
   deleteBtn.addEventListener("click", () => {
     const deleteDiv = document.createElement("div");
@@ -130,72 +188,30 @@ function createBookElement(updatedBook) {
   cardHeader.appendChild(publisherElement);
 
   const cardFooter = document.createElement("div");
-  cardFooter.className = "grid place-items-end";
+  cardFooter.className = "grid  h-full  w-full grid-cols-3";
   card.appendChild(cardFooter);
 
   const shortDescElement = document.createElement("p");
+  shortDescElement.className = "col-span-3";
   shortDescElement.textContent = shortInfo;
   cardFooter.appendChild(shortDescElement);
 
+  const isReadDiv = document.createElement("Div");
+  isReadDiv.className = "col-span-2  ";
+  const isReadBtn = document.createElement("button");
+  isReadBtn.textContent = isRead ? "Finished" : "Unfinished";
+  isReadBtn.className = "bg-slate-200 p-2";
+  isReadBtn.addEventListener("click", () => {
+    return changeReadBook(bookName, !isRead);
+  });
+  isReadDiv.appendChild(isReadBtn);
+
+  cardFooter.appendChild(isReadDiv);
+
   const readBtn = document.createElement("button");
-  readBtn.className = "bg-green-500 text-slate-50 p-2 rounded-lg";
-  readBtn.textContent = "read me";
+  readBtn.className = "bg-green-500 w-full h-10 text-slate-50 p-2 rounded-lg";
+  readBtn.textContent = "More";
   cardFooter.appendChild(readBtn);
-
-  // const bookTitle = document.createElement("div");
-  // const info = document.createElement("div");
-  // const auth = document.createElement("p");
-  // const title = document.createElement("h1");
-  // const year = document.createElement("p");
-  // const count = document.createElement("p");
-  // const short = document.createElement("p");
-  // const pub = document.createElement("p");
-  // const lang = document.createElement("p");
-  // const btn = document.createElement("button");
-
-  // let bookName = updatedBook[book].bookName;
-  // let author = updatedBook[book].author;
-  // let published = updatedBook[book].bookPublished;
-  // let pageCount = updatedBook[book].pageCount;
-  // let shortInfo = updatedBook[book].shortInfo;
-  // let language = updatedBook[book].language;
-  // let publisher = updatedBook[book].publisher;
-
-  // title.textContent = bookName;
-  // auth.textContent = `by ${author}`;
-  // year.textContent = published;
-  // count.textContent = `Pages: ${pageCount}`;
-  // short.textContent = shortInfo;
-  // pub.textContent = publisher;
-  // lang.textContent = language;
-  // btn.textContent = "Read Now";
-
-  // bookTitle.appendChild(title);
-  // bookTitle.appendChild(lang);
-  // bookTitle.appendChild(auth);
-  // bookTitle.appendChild(year);
-  // bookTitle.appendChild(pub);
-  // bookTitle.appendChild(count);
-
-  // info.appendChild(short);
-  // info.appendChild(btn);
-
-  // details.appendChild(bookTitle);
-  // details.appendChild(info);
-
-  // short.className = "";
-  // btn.className = "border bg-green-600 text-slate-50 col-span-2 p-2 rounded-lg";
-  // pub.className = "col-span-3";
-  // lang.className = "text-right";
-  // auth.className = "col-span-2";
-  // short.className = "col-span-2";
-  // count.className = "text-right";
-  // year.className = "text-right col-span-2 ";
-  // info.className = "grid grid-cols-2 text-justify";
-  // title.className = "text-xl col-span-3";
-  // bookTitle.className = "grid grid-cols-4 gap-1";
-  // details.className =
-  //   "w-full h-full border p-4 gap-2 shadow-sm grid bg-slate-50";
 
   return card;
 }
@@ -233,18 +249,15 @@ function getBook(e) {
   });
 
   displayBookList(filterBook);
-  if (filterBook.length === 0) {
-    return (booksContainer.textContent = "No Books Found");
-  } else {
-    return Book(filterBook);
-  }
 }
 
 function displayBookList(books) {
   if (books.length === 0) {
     return (booksContainer.innerHTML = "No Books Found");
   }
-  booksContainer.innerHTML = "";
+  while (booksContainer.firstChild) {
+    booksContainer.removeChild(booksContainer.firstChild);
+  }
   books.forEach((book) => {
     const bookElement = createBookElement(book);
     booksContainer.appendChild(bookElement);
@@ -252,6 +265,7 @@ function displayBookList(books) {
 }
 
 function addBookToLibrary() {
+  console.log("a");
   const formData = new FormData(form);
   let entries = formData.entries();
 
@@ -269,12 +283,26 @@ function addBookToLibrary() {
   });
   if (isDouble) return false;
   myLibrary.push(newbook);
-  resetBookList();
+  displayTabBooks(currentTab);
   showForm(false);
-  Book(myLibrary);
   return false;
 }
 
+function preLoad() {
+  const main = document.querySelector("main");
+  loader.style.opacity = 1;
+  loader.style.display = "flex";
+
+  setTimeout(() => {
+    main.style.opacity = 1;
+    loader.style.opacity = 0;
+    loader.addEventListener("transitionend", () => {
+      loader.style.display = "none";
+    });
+    main.style.display = "grid";
+  });
+}
+
 window.onload = () => {
-  displayBookList(myLibrary);
+  displayTabBooks(DEFAULT_TAB);
 };

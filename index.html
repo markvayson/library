@@ -8,7 +8,7 @@
     <link href="dist/output.css" rel="stylesheet" />
   </head>
   <body class="flex flex-col gap-2 bg-slate-100">
-    <header class="grid gap-3 sm:grid-cols-3 grid-cols-3 p-2">
+    <header class="z-20 bg-slate-100 grid gap-3 sm:grid-cols-3 grid-cols-3 p-2">
       <div id="logo" class="text-2xl p-2">Library</div>
 
       <div
@@ -22,7 +22,9 @@
         >
           + add book
         </button>
-        <button class="">Login</button>
+        <button class="bg-slate-50 tracking-wider shadow-sm p-2 rounded-lg">
+          Login
+        </button>
       </div>
       <input
         type="text"
@@ -30,11 +32,35 @@
         placeholder="Search for title, author or year..."
         class="p-2 w-full col-span-3 rounded-lg"
       />
+      <div class="grid grid-cols-3 col-span-3 gap-2">
+        <button id="all-books" class="bg-slate-200 p-2">All</button>
+        <button id="finished-books" class="bg-slate-200 p-2">Finished</button>
+        <button id="unfinished-books" class="bg-slate-200 p-2">
+          Unfinished
+        </button>
+      </div>
     </header>
-    <main class="grid gap-2 auto-rows-min grid-cols-1">
+    <div
+      id="loader"
+      class="z-10 gap-2 transition-opacity duration-300 flex items-center h-full justify-center bg-slate-50 w-full absolute"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 -960 960 960"
+        class="animate-spin w-8 h-8"
+      >
+        <path
+          d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
+        />
+      </svg>
+      Processing...
+    </div>
+    <main
+      class="hidden transition-opacity duration-300 gap-2 opacity-0 auto-rows-min grid-cols-1"
+    >
       <div
         id="books-container"
-        class="grid gap-2 xl:grid-cols-4 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 place-items-center justify-center"
+        class="grid relative gap-2 xl:grid-cols-4 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 place-items-center justify-center"
       ></div>
       <div id="new-book">
         <div
@@ -52,7 +78,8 @@
                 type="text"
                 name="bookName"
                 id="new-book-name"
-                value="Title"
+                placeholder="Title"
+                required
               />
             </div>
             <div class="grid gap-1">
@@ -62,7 +89,8 @@
                 type="text"
                 name="author"
                 id="new-book-author"
-                value="Author"
+                placeholder="Author"
+                required
               />
             </div>
             <div class="grid gap-1">
@@ -72,7 +100,8 @@
                 type="text"
                 name="bookPublished"
                 id="new-book-year"
-                value="Year Published"
+                placeholder="Year Published"
+                required
               />
             </div>
             <div class="grid gap-1">
@@ -82,17 +111,19 @@
                 type="text"
                 name="publisher"
                 id="new-book-publisher"
-                value="Publisher"
+                placeholder="Publisher"
+                required
               />
             </div>
             <div class="grid gap-1">
               <label for="new-book-page-count">Pages of Book:</label>
               <input
                 class="col-span-2 p-2 bg-slate-100 border-b border-slate-900"
-                type="text"
+                type="name"
                 name="pageCount"
                 id="new-book-page-count"
-                value="321"
+                placeholder="999"
+                required
               />
             </div>
             <div class="grid gap-1">
@@ -102,15 +133,17 @@
                 type="text"
                 name="language"
                 id="new-book-language"
-                value="English"
+                placeholder="English"
+                required
               />
             </div>
             <div class="grid gap-1">
               <label for="new-book-shortinfo">Short Details</label>
               <textarea
-                value="Just Some Details"
+                placeholder="Put Some Details"
                 id="new-book-shortinfo"
                 class="bg-slate-50"
+                required
               ></textarea>
             </div>
             <button
